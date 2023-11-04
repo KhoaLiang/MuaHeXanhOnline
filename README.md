@@ -1,5 +1,5 @@
 # Software
-This is backend of BKTravel Project
+This is backend of Mua He Xanh Online Project
 
 # How to run project 
 1. Git clone
