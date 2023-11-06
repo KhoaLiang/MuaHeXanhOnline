@@ -23,6 +23,14 @@ class AccessService {
 
         const hassedpassword = await bcrypt.hash(password, 10)
 
+        if (!mssv) {
+            throw new BadRequestError("MSSV isn't empty")
+        }
+
+        if (!university) {
+            throw new BadRequestError("University isn't empty")
+        }
+
         const newUser = new User({username, password: hassedpassword, gmail, mssv, university});
 
         const savedUser = await newUser.save().catch((error) => {
