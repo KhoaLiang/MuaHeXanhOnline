@@ -1,8 +1,14 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/index");
 
-const User = sequelize.define('user', {
-    user_id: {
+const accountTypes = {
+    ADMIN: 'admin',
+    LEADER: 'leader',
+    STUDENT: 'student'
+}
+
+const Account = sequelize.define('user', {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -20,44 +26,17 @@ const User = sequelize.define('user', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    mssv: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    university: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    dob: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        validate: {
-            isData: true
-        }
-    },
-    avatar: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-            len: [10-12]
-        }
-    },
     gmail: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    role_id: {
-        type: DataTypes.INTEGER,
-        defaultValue: 3
-    },
+    type_user: {
+        type: DataTypes.ENUM(accountTypes.ADMIN, accountTypes.LEADER, accountTypes.STUDENT),
+        allowNull: false
+    }
 })
 
-module.exports = User;
+module.exports = {
+    Account,
+    accountTypes
+}

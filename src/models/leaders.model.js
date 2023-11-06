@@ -1,25 +1,25 @@
-'use strict'
 const { DataTypes } = require("sequelize")
 const sequelize = require("../database/index")
+const Verify = require("./verify.model")
 
-const UserType = sequelize.define('user_type', {
-    user_type_id: {
+const Leaders = sequelize.define('leader', {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    level: {
+    leader_id: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    name_level: {
-        type: DataTypes.ENUM('Copper', 'Silver', 'Gold'),
         allowNull: false
     },
-    description: {
+    location: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    position: {
         type: DataTypes.STRING,
         allowNull: false
     }
 })
 
-module.exports = UserType
+module.exports = Leaders
