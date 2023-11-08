@@ -23,7 +23,7 @@ class ProjectController {
         } else {
           res.status(404).json(result);
         }
-      };
+    };
 
     getAllProjects = async (req, res) => {
         const result = await ProjectService.getAllProjects();
@@ -34,11 +34,15 @@ class ProjectController {
         }
     };
 
-    deleteProject = async (req, res, next) => {
-        OK(res, "Delete project successfully!",
-            await ProjectService.deleteProject(req.body)
-        )
-    }
+    deleteProjectById = async (req, res) => {
+        const projectId = req.params.project_id;
+        const result = await ProjectService.deleteProjectById(projectId);
+        if (result.success) {
+          res.json(result);
+        } else {
+          res.status(404).json(result);
+        }
+    };
 }
 
 module.exports = new ProjectController()

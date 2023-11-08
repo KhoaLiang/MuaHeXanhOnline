@@ -69,16 +69,28 @@ class ProjectService  {
         }
     }
 
-    static deleteProject = async (projectId) => {
-        const foundProject = await Project.findOne({where: {project_id: projectId}}).catch(
-            (err) => {
-                console.log("Error:", err)
+    static deleteProjectById = async (projectId) => {
+        try {
+            const project = await Project.findOne({ where: { project_id: projectId } });
+            if (!project) {
+              return {
+                success: false,
+                error: "Project not found",
+              };
             }
-        )
-        if (!foundProject) {
-            throw new BadRequestError("Tour isn't exist!")
+            await project.destroy();
+        
+            return {
+              success: true,
+              message: "Project deleted successfully",
+            };
+        } catch (error) {
+            console.error('Failed to delete project: ', error);
+            return {
+              success: false,
+              error: "An error occurred",
+            };
         }
-        return Project.destroy({where: {project_id: projectId}})
     }
 }
 
