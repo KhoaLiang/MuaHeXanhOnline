@@ -12,17 +12,17 @@ const Project = sequelize.define('project', {
         allowNull: true
     },
     current_number: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: true
     },
     location: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    status: {
-        type: DataTypes.ENUM('approved', 'not_approved'),
-        allowNull: true
-    },
+    // status: {
+    //     type: DataTypes.ENUM('approved', 'not_approved'),
+    //     allowNull: true
+    // },
     school: {
         type: DataTypes.STRING,
         allowNull: false
