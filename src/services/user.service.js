@@ -7,7 +7,9 @@ const findUserByUsername = async (username) => {
 }
 
 class UserService {
-    
+    static getAll = async () => {
+        return await User.findAll()
+    }
 }
 module.exports = {
     findUserByUsername
