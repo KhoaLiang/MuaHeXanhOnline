@@ -7,7 +7,7 @@ const accountTypes = {
     STUDENT: 'student'
 }
 
-const Account = sequelize.define('user', {
+const User = sequelize.define('user', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -37,6 +37,6 @@ const Account = sequelize.define('user', {
 })
 
 module.exports = {
-    Account,
+    User,
     accountTypes
 }
