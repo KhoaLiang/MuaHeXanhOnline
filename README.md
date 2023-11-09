@@ -12,7 +12,12 @@ Students can apply for projects that match their ability.
 
 Community leaders should be able to reject un-qualified applicants.
 
+## Prepare for running project
+- Installing NodeJS v.16 or v.18, you can access link: [https://www.bing.com/ck/a?!&&p=8a4fbb3f0a6369cbJmltdHM9MTY5OTQ4ODAwMCZpZ3VpZD0xZWM2NjgwOC1mNTJkLTZmZDItMWY0Zi03Yjk4ZjQyNTZlM2MmaW5zaWQ9NTIwMQ&ptn=3&hsh=3&fclid=1ec66808-f52d-6fd2-1f4f-7b98f4256e3c&psq=install+nodejs&u=a1aHR0cHM6Ly9ub2RlanMub3JnL2VuL2Rvd25sb2Fk&ntb=1](https://nodejs.org/en/download)
+- Installing MySQL: https://dev.mysql.com/downloads/workbench/
+
 ## How to run project 
 1. Git clone: https://github.com/DucHuy2801/MuaHeXanhOnline.git
 2. npm install
-3. npm run start
+3. Create .env file follows .env.example
+4. npm run start
