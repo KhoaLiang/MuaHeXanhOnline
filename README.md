@@ -13,6 +13,6 @@ Students can apply for projects that match their ability.
 Community leaders should be able to reject un-qualified applicants.
 
 ## How to run project 
-1. Git clone 
+1. Git clone: https://github.com/DucHuy2801/MuaHeXanhOnline.git
 2. npm install
 3. npm run start
