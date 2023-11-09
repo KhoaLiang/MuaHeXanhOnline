@@ -1,5 +1,8 @@
-# Software
-This is backend of Mua He Xanh Online Project
+# ADVANCED SOFTWARE TECHNOLOGY
+This is source backend for project: "Mua He Xanh Online Register System" 
+
+## Vision
+We would like to have a tool to help coordinate between universites and the local...
 
 # How to run project 
 1. Git clone
