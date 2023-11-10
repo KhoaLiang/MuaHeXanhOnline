@@ -70,11 +70,6 @@ class AccessService {
             token: jwtToken
        }
     }
-
-    // static logout = async (keyStore) => {
-    //     const delKey = await KeyTokenService.deleteKeyById(keyStore.user_id)
-    //     return delKey
-    // }
 }
 
 module.exports = AccessService
