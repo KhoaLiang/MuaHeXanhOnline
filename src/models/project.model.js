@@ -23,9 +23,10 @@ const Project = sequelize.define('project', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // isVerified: {
-    //     type: DataTypes.BOOLEAN
-    // },
+    isVerified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
     school: {
         type: DataTypes.STRING,
         allowNull: false
