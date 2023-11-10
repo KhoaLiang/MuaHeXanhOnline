@@ -7,10 +7,45 @@ const findUserByUsername = async (username) => {
 }
 
 class UserService {
-    static getAll = async () => {
-        return await User.findAll()
+    
+    static getStudentByMSSV = async (mssv) => {
+        try {
+            const student = await User.findOne({where: {mssv}})
+            if (student) {
+                return {
+                    success: true,
+                    data: student
+                }
+            } else {
+                return {
+                    success: false,
+                    error: "Student not found!"
+                }
+            }
+        } catch (error) {
+            console.error('Failed to retrieve project data: ', error)
+            return {
+                success: false,
+                error: 'An error occurred'
+            }
+        }
+    }
+
+    static getAllStudents = async () => {
+        try {
+            const students = await User.findAll({where: {type_user: 'student'}});
+            return {
+                success: true,
+                data: students
+            }
+        } catch (error) {
+            console.error('Failed to retrieve student data: ', error);
+            return {
+                success: false,
+                error: "An error occurred",
+            };
+        }
     }
 }
-module.exports = {
-    findUserByUsername
-}
+
+module.exports = UserService
