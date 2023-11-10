@@ -48,11 +48,33 @@ class UserService {
         }
     }
 
-    static UpdateStudentInfo = async (
-        
-    ) => {
-
-    }
+    static updateInfoStudent = async ({mssv, data_student}) => {
+        try {
+            const found_student = await Project.findOne({ where: { mssv } });
+            if (!found_student) {
+                throw new BadRequestError('Not found student!');
+            }
+      
+            const [num, updatedRows] = await Project.update(data_student, {
+                where: { project_id },
+            });
+      
+            if (num === 1) {
+                const updated_user = await Project.findOne({ where: { mssv } });
+                return {
+                    success: true,
+                    message: "Updating info student successfully!"
+                }
+            } else {
+                return {
+                success: false,
+                data: "Updating student's info failed!"
+                }
+            }
+        } catch (err) {
+          console.error(err)
+        }
+    } 
 }
 
 module.exports = UserService
