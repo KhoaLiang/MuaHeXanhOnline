@@ -34,31 +34,15 @@ class ProjectController {
 
     updateProject = async (req, res) => {
       const project_id = req.params.project_id;
-      const foundProject = Project.findOne({where: {project_id}})
-      if (!foundProject) {
-        throw new BadRequestError('Not found project for updating!')
+      const data_project = req.body;
+      const result = await ProjectService.updateProject({project_id, data_project})
+      if (result.success) {
+        res.json(result);
+      } else {
+        res.status(404).json(result);
       }
-      console.log(`body`, req.body)
-      Project.update(req.body, {
-        where: {project_id: project_id}
-      }).then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Project was updated successfully."
-          });
-        } else {
-          res.send({
-            message: `Cannot update Project with project_id=${project_id}. Maybe Project was not found or req.body is empty!`
-          });
-        }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: "Error updating project with project_id=" + project_id
-          });
-        })
-    }
-
+    };
+    
     deleteProjectById = async (req, res) => {
         const projectId = req.params.project_id;
         const result = await ProjectService.deleteProjectById(projectId);

@@ -65,6 +65,35 @@ class ProjectService  {
         }
     }
 
+    static updateProject = async ({project_id, data_project}) => {
+      try {
+        const foundProject = await Project.findOne({ where: { project_id } });
+        if (!foundProject) {
+          throw new BadRequestError('Not found project for updating!');
+        }
+    
+        const [num, updatedRows] = await Project.update(data_project, {
+          where: { project_id },
+        });
+    
+        if (num === 1) {
+          const updated_project = await Project.findOne({ where: { project_id } });
+          return {
+            success: true,
+            message: "Updating project successfully!"
+            // data: updated_project
+          }
+        } else {
+          return {
+            success: false,
+            data: 'Updating project failed'
+          }
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
     static deleteProjectById = async (projectId) => {
         try {
             const project = await Project.findOne({ where: { project_id: projectId } });
