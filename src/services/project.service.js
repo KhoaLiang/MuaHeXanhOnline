@@ -5,8 +5,8 @@ const Project = require("../models/project.model");
 const { getInfoData } = require("../utils");
 
 class ProjectService  {
-    static postProject = async ({location, school, content}) => {
-        const newProject = new Project({location, school, content});
+    static postProject = async ({location, school, content, current_number, number_of_students}) => {
+        const newProject = new Project({location, school, content, current_number, number_of_students});
 
         const savedProject = await newProject.save().catch((error) => {
             console.log("Error: ", error)
@@ -47,10 +47,6 @@ class ProjectService  {
               error: "An error occurred",
             };
           }
-    }
-
-    static updateProject = async ({projectId, number_of_students}) => {
-
     }
 
     static getAllProjects = async () => {

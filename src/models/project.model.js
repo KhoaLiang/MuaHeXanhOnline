@@ -15,13 +15,16 @@ const Project = sequelize.define('project', {
         type: DataTypes.INTEGER,
         allowNull: true
     },
+    number_of_students: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+    },
     location: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    // status: {
-    //     type: DataTypes.ENUM('approved', 'not_approved'),
-    //     allowNull: true
+    // isVerified: {
+    //     type: DataTypes.BOOLEAN
     // },
     school: {
         type: DataTypes.STRING,

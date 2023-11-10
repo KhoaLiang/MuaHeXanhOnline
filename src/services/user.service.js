@@ -1,4 +1,5 @@
 'use strict'
+const { Request, Response } = require("express");
 
 const User = require('../models/user.model')
 
@@ -45,6 +46,12 @@ class UserService {
                 error: "An error occurred",
             };
         }
+    }
+
+    static UpdateStudentInfo = async (
+        
+    ) => {
+
     }
 }
 
