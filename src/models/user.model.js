@@ -33,10 +33,15 @@ const User = sequelize.define('user', {
     type_user: {
         type: DataTypes.ENUM(accountTypes.ADMIN, accountTypes.LEADER, accountTypes.STUDENT),
         allowNull: false
+    },
+    mssv: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    school: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 })
 
-module.exports = {
-    User,
-    accountTypes
-}
+module.exports = User
