@@ -5,8 +5,8 @@ const Project = require("../models/project.model");
 const { getInfoData } = require("../utils");
 
 class ProjectService  {
-    static postProject = async ({location, school, content, current_number, number_of_students}) => {
-        const newProject = new Project({location, school, content, current_number, number_of_students});
+    static postProject = async ({title, location, school, content, current_number, number_of_students}) => {
+        const newProject = new Project({title, location, school, content, current_number, number_of_students, isVerified: false});
 
         const savedProject = await newProject.save().catch((error) => {
             console.log("Error: ", error)

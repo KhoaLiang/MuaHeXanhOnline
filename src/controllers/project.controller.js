@@ -1,10 +1,7 @@
 'use strict'
 
 const ProjectService = require("../services/project.service")
-const {OK, CREATED, SuccessResponse} = require("../core/success.response")
-const Project = require("../models/project.model");
-const { BadRequestError } = require("../core/error.response");
-
+const {CREATED, SuccessResponse} = require("../core/success.response")
 
 class ProjectController {
     postProject = async (req, res, next) => {
