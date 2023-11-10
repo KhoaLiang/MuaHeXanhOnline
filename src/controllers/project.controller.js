@@ -1,7 +1,7 @@
 'use strict'
 
 const ProjectService = require("../services/project.service")
-const {OK, CREATED} = require("../core/success.response")
+const {OK, CREATED, SuccessResponse} = require("../core/success.response")
 const Project = require("../models/project.model");
 
 
@@ -26,12 +26,9 @@ class ProjectController {
     };
 
     getAllProjects = async (req, res) => {
-        const result = await ProjectService.getAllProjects();
-        if (result.success) {
-            res.status(200).json(result)
-        } else {
-            res.status(500).json(result)
-        }
+      new SuccessResponse({
+        metadata: await ProjectService.getAllProjects()
+    }).send(res)
     };
 
     deleteProjectById = async (req, res) => {

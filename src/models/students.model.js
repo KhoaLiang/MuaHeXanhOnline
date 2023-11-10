@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../database/index")
+const { User } = require("./user.model")
 
 const Students = sequelize.define('student', {
     id: {
@@ -7,7 +8,7 @@ const Students = sequelize.define('student', {
         primaryKey: true,
         autoIncrement: true
     },
-    student_id: {
+    mssv: {
         type: DataTypes.INTEGER,
         allowNull: false
     },

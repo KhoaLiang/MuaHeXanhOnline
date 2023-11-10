@@ -55,16 +55,16 @@ class ProjectService  {
 
     static getAllProjects = async () => {
         try {
-          const projects = await Project.findAll();
-          return {
-            success: true,
-            data: projects,
-          };
+            const projects = await Project.findAll();
+            return {
+                success: true,
+                data: projects,
+            };
         } catch (error) {
           console.error('Failed to retrieve project data: ', error);
           return {
-            success: false,
-            error: "An error occurred",
+              success: false,
+              error: "An error occurred",
           };
         }
     }

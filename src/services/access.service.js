@@ -8,7 +8,7 @@ const { getInfoData } = require("../utils")
 const { findUserByUsername } = require("./user.service")
 
 class AccessService {
-    static register = async ({username, password, gmail, mssv, university}) => {
+    static register = async ({username, password, gmail, mssv, school, type_user}) => {
         const alreadyExistUser = await User.findOne({ where: {username} }).catch(
             (err) => {
                 console.log("Error: ", err)
@@ -27,11 +27,11 @@ class AccessService {
             throw new BadRequestError("MSSV isn't empty")
         }
 
-        if (!university) {
+        if (!school) {
             throw new BadRequestError("University isn't empty")
         }
 
-        const newUser = new User({username, password: hassedpassword, gmail, mssv, university});
+        const newUser = new User({username, password: hassedpassword, gmail, mssv, school, type_user});
 
         const savedUser = await newUser.save().catch((error) => {
             console.log("Error: ", error)
@@ -41,7 +41,8 @@ class AccessService {
             return {
                 code: 201,
                 metadata: {
-                    user: getInfoData({fields: ['user_id', 'username'], object: savedUser})
+                    // user: getInfoData({fields: ['user_id', 'username'], object: savedUser})
+                    user_info: savedUser
                 }
             }
         }
