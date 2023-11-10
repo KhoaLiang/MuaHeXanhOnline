@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken")
 
 const { BadRequestError, AuthFailureError } = require("../core/error.response")
 const { getInfoData } = require("../utils")
-const { findUserByUsername } = require("./user.service")
 
 class AccessService {
     static register = async ({username, password, gmail, mssv, school, type_user}) => {
@@ -31,7 +30,7 @@ class AccessService {
             throw new BadRequestError("University isn't empty")
         }
 
-        const newUser = new User({username, password: hassedpassword, gmail, mssv, school, type_user});
+        const newUser = new User({username, password: hassedpassword, gmail, mssv, school, type_user: 'student'});
 
         const savedUser = await newUser.save().catch((error) => {
             console.log("Error: ", error)
@@ -53,7 +52,11 @@ class AccessService {
     }
 
     static login = async ({username, password, refreshToken = null}) => {
-        const foundUser = await findUserByUsername(username) 
+        const foundUser = await User.findOne({ where: {username} }).catch(
+            (err) => {
+                console.log("Error: ", err)
+            }
+        )
         if (!foundUser) {
             throw new BadRequestError("Username doesn't exist!")
         }
@@ -62,7 +65,7 @@ class AccessService {
         if (!match) throw new AuthFailureError('Authentication error!')
 
        const jwtToken = jwt.sign(
-            {use_id: foundUser.use_id, username: foundUser.username},
+            {use_id: foundUser.use_id, username: foundUser.username, type_user: foundUser.type_user},
             process.env.JWT_SECRET
        )
        return {
