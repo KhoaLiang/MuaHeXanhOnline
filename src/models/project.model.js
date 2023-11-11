@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require('../database/index.js')
+const Admin = require("../models/uni_admin.model.js")
 
 const statusProject = {
     re_verify: 'Chờ xét duyệt',
@@ -40,7 +41,9 @@ const Project = sequelize.define('project', {
     content: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
 })
+
+// Project.belongsTo(Admin, { foreignKey: 'adminId', allowNull: true });
 
 module.exports = Project;

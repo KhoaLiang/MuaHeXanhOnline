@@ -26,8 +26,14 @@ class ProjectController {
     getAllProjects = async (req, res) => {
       new SuccessResponse({
         metadata: await ProjectService.getAllProjects()
-    }).send(res)
+      }).send(res)
     };
+
+    getAllVerifiedProjects = async (req, res) => {
+      new SuccessResponse({
+          metadata: await ProjectService.getVerifiedProject()
+      }).send(res)
+    }
 
     updateProject = async (req, res) => {
       const project_id = req.params.project_id;
@@ -39,6 +45,17 @@ class ProjectController {
         res.status(404).json(result);
       }
     };
+
+    verifyProject = async (req, res) => {
+      const project_id = req.params.project_id;
+      const status_data = req.body;
+      const verified_project = await ProjectService.verifyProject({project_id, status_data})
+      if (verified_project.success) {
+        res.json(verified_project)
+      } else {
+        res.status(401).json("Unauthorized for verifying status project!")
+      }
+    }
     
     deleteProjectById = async (req, res) => {
         const projectId = req.params.project_id;

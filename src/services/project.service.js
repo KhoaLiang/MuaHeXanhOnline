@@ -2,8 +2,6 @@
 
 const { BadRequestError } = require("../core/error.response");
 const Project = require("../models/project.model");
-const { getInfoData } = require("../utils");
-
 const statusProject = {
   re_verify: 'Chờ xét duyệt',
   reject: 'Từ chối',
@@ -71,6 +69,22 @@ class ProjectService  {
         }
     }
 
+    static getVerifiedProject = async () => {
+      try {
+          const verified_projects = await User.findAll({where: {status: statusProject.approve}});
+          return {
+              success: true,
+              data: verified_projects
+          }
+      } catch (error) {
+          console.error('Failed to retrieve verified projects data: ', error);
+          return {
+              success: false,
+              error: "An error occurred",
+          };
+      }
+  }
+
     static updateProject = async ({project_id, data_project}) => {
       try {
         const foundProject = await Project.findOne({ where: { project_id } });
@@ -86,7 +100,7 @@ class ProjectService  {
           const updated_project = await Project.findOne({ where: { project_id } });
           return {
             success: true,
-            message: "Updating project successfully!"
+            message: "Updating status project successfully!"
             // data: updated_project
           }
         } else {
@@ -124,6 +138,38 @@ class ProjectService  {
         }
     }
 
+    static verifyProject = async ({project_id, status_data}) => {
+      try {
+        const foundProject = await Project.findOne({ where: { project_id } });
+        if (!foundProject) {
+          throw new BadRequestError('Not found project for updating!');
+        }
+    
+        const [num, updatedRows] = await Project.update(status_data, {
+          where: { project_id },
+        });
+    
+        if (num === 1) {
+          const updated_project = await Project.findOne({ where: { project_id } });
+          return {
+            success: true,
+            message: "Updating project successfully!"
+            // data: updated_project
+          }
+        } else {
+          return {
+            success: false,
+            data: 'Updating project failed'
+          }
+        }
+        return {
+          success: true,
+          message: "Updating project successfully!"
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
 }
 
 module.exports = ProjectService 
