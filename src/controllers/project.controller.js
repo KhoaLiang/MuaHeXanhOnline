@@ -49,6 +49,18 @@ class ProjectController {
           res.status(404).json(result);
         }
     };
+
+    verifyProject = async (req, res) => {
+      const projectId = req.params.project_id;
+      const status = req.body;
+      const result = await ProjectService.verifyProject(projectId, status);
+      if (result.success) {
+        res.json(result);
+      } else {
+        res.status(404).json(result);
+      }
+    };
+    
 }
 
 module.exports = new ProjectController()

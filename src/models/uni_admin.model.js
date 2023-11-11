@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../database/index")
+const Project = require("./project.model")
 
 const Admin = sequelize.define('admin', {
     id: {
@@ -7,7 +8,7 @@ const Admin = sequelize.define('admin', {
         primaryKey: true,
         autoIncrement: true
     },
-    location: {
+    university: {
         type: DataTypes.STRING,
         allowNull: false
     },

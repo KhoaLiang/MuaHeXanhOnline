@@ -124,6 +124,31 @@ class ProjectService  {
         }
     }
 
+    static verifyProject = async (projectId, status) => {
+      try {
+        const foundProject = await Project.findOne({ where: { projectId } });
+        if (!foundProject) {
+          throw new BadRequestError('Not found project for updating!');
+        }
+        if (status === 'approve') {
+          foundProject.status = statusProject.approve;
+          return {
+            success: true,
+            message: "Project verify successfully",
+          };
+        } else {
+          foundProject.status = statusProject.reject;
+          return {
+            success: false,
+            message: "Project is reject",
+          };
+        }
+        
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
 }
 
 module.exports = ProjectService 
