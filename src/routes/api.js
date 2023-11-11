@@ -19,4 +19,6 @@ router.post('/api/deleteproject/:project_id', projectController.deleteProjectByI
 
 router.get('/api/students/:mssv', userController.getStudentByMSSV)
 router.get('/api/students', userController.getAllStudents)
+router.put('/api/updatestudent/:mssv', userController.updateInfoStudent)
+
 module.exports = router
