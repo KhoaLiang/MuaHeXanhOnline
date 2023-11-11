@@ -65,7 +65,7 @@ class AccessService {
         if (!match) throw new AuthFailureError('Authentication error!')
 
        const jwtToken = jwt.sign(
-            {use_id: foundUser.use_id, username: foundUser.username, type_user: foundUser.type_user},
+            {mssv: foundUser.mssv},
             process.env.JWT_SECRET
        )
        return {
