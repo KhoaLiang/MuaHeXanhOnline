@@ -1,6 +1,12 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require('../database/index.js')
 
+const statusProject = {
+    re_verify: 'Chờ xét duyệt',
+    reject: 'Từ chối',
+    approve: 'Được xét duyệt'
+}
+
 const Project = sequelize.define('project', {
     project_id: {
         type: DataTypes.INTEGER,
@@ -23,8 +29,8 @@ const Project = sequelize.define('project', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    isVerified: {
-        type: DataTypes.BOOLEAN,
+    status: {
+        type: DataTypes.ENUM(statusProject.re_verify, statusProject.reject, statusProject.approve),
         allowNull: false
     },
     school: {

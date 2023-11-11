@@ -4,9 +4,15 @@ const { BadRequestError } = require("../core/error.response");
 const Project = require("../models/project.model");
 const { getInfoData } = require("../utils");
 
+const statusProject = {
+  re_verify: 'Chờ xét duyệt',
+  reject: 'Từ chối',
+  approve: 'Được xét duyệt'
+}
+
 class ProjectService  {
     static postProject = async ({title, location, school, content, current_number, number_of_students}) => {
-        const newProject = new Project({title, location, school, content, current_number, number_of_students, isVerified: false});
+        const newProject = new Project({title, location, school, content, current_number, number_of_students, status: statusProject.re_verify});
 
         const savedProject = await newProject.save().catch((error) => {
             console.log("Error: ", error)
@@ -117,6 +123,7 @@ class ProjectService  {
             };
         }
     }
+
 }
 
 module.exports = ProjectService 
