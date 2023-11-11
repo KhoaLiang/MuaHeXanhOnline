@@ -138,38 +138,6 @@ class ProjectService  {
         }
     }
 
-    static verifyProject = async ({project_id, status_data}) => {
-      try {
-        const foundProject = await Project.findOne({ where: { project_id } });
-        if (!foundProject) {
-          throw new BadRequestError('Not found project for updating!');
-        }
-    
-        const [num, updatedRows] = await Project.update(status_data, {
-          where: { project_id },
-        });
-    
-        if (num === 1) {
-          const updated_project = await Project.findOne({ where: { project_id } });
-          return {
-            success: true,
-            message: "Updating project successfully!"
-            // data: updated_project
-          }
-        } else {
-          return {
-            success: false,
-            data: 'Updating project failed'
-          }
-        }
-        return {
-          success: true,
-          message: "Updating project successfully!"
-        }
-      } catch (err) {
-        console.error(err)
-      }
-    }
 }
 
 module.exports = ProjectService 

@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../database/index")
+const Project = require("./project.model")
 
 const Admin = sequelize.define('admin', {
     id: {
