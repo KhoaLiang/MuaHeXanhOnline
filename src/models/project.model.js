@@ -1,8 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require('../database/index.js')
 const Admin = require("../models/uni_admin.model.js")
-const sequelize = require('../database/index.js');
-const Admin = require("./uni_admin.model.js");
 
 const statusProject = {
     re_verify: 'Chờ xét duyệt',
