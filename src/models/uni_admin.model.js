@@ -7,7 +7,7 @@ const Admin = sequelize.define('admin', {
         primaryKey: true,
         autoIncrement: true
     },
-    location: {
+    university: {
         type: DataTypes.STRING,
         allowNull: false
     },
