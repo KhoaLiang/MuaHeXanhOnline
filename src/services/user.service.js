@@ -1,5 +1,4 @@
 'use strict'
-const { Request, Response } = require("express");
 
 const User = require('../models/user.model')
 
@@ -50,17 +49,17 @@ class UserService {
 
     static updateInfoStudent = async ({mssv, data_student}) => {
         try {
-            const found_student = await Project.findOne({ where: { mssv } });
+            const found_student = await User.findOne({ where: { mssv } });
             if (!found_student) {
                 throw new BadRequestError('Not found student!');
             }
       
-            const [num, updatedRows] = await Project.update(data_student, {
-                where: { project_id },
+            const [num, updatedRows] = await User.update(data_student, {
+                where: { mssv },
             });
       
             if (num === 1) {
-                const updated_user = await Project.findOne({ where: { mssv } });
+                const updated_user = await User.findOne({ where: { mssv } });
                 return {
                     success: true,
                     message: "Updating info student successfully!"
