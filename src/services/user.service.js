@@ -66,12 +66,12 @@ class UserService {
                 }
             } else {
                 return {
-                success: false,
-                data: "Updating student's info failed!"
+                    success: false,
+                    data: "Updating student's info failed!"
                 }
             }
         } catch (err) {
-          console.error(err)
+            console.error(err)
         }
     } 
 }
