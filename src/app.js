@@ -36,7 +36,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.get("/", (req, res) => {
     res.json({ message: "Backend for Mua he xanh Online..." });
 });
-app.use('', require('./routes/api'))
+app.use('', require('./routes/index'))
 
 app.use((error , req, res, next) => {
     const statusCode = error.status || 500
