@@ -62,7 +62,7 @@ class AccessService {
         }
 
         const match = bcrypt.compare(password, foundUser.password)
-        if (!match) throw new AuthFailureError('Authentication error!')
+        if (match) throw new AuthFailureError('Authentication error!')
 
         const jwtToken = jwt.sign(
                 {mssv: foundUser.mssv, id: foundUser.id},
