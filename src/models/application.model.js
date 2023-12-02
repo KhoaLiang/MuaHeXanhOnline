@@ -7,6 +7,18 @@ const Application = sequelize.define('application', {
         primaryKey: true,
         autoIncrement: true
     },
+    mssv_student: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    project_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
     time: {
         type: DataTypes.DATE
     }
