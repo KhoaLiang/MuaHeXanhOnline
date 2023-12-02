@@ -17,16 +17,16 @@ class ProjectController {
         const result = await ProjectService.getProjectById(projectId);
       
         if (result.success) {
-          res.json(result);
+            res.json(result);
         } else {
-          res.status(404).json(result);
+            res.status(404).json(result);
         }
     };
 
     getAllProjects = async (req, res) => {
-      new SuccessResponse({
-        metadata: await ProjectService.getAllProjects()
-      }).send(res)
+        new SuccessResponse({
+            metadata: await ProjectService.getAllProjects()
+        }).send(res)
     };
 
     getAllVerifiedProjects = async (req, res) => {
@@ -36,20 +36,20 @@ class ProjectController {
     }
 
     updateProject = async (req, res) => {
-      const project_id = req.params.project_id;
-      const data_project = req.body;
-      const result = await ProjectService.updateProject({project_id, data_project})
-      if (result.success) {
-        res.json(result);
-      } else {
-        res.status(404).json(result);
-      }
+        const project_id = parseInt(req.params.project_id)
+        const data_project = req.body;
+        const result = await ProjectService.updateProject({project_id, data_project})
+        if (result.success) {
+            res.json(result);
+        } else {
+            res.status(404).json(result);
+        }
     };
 
     verifyProject = async (req, res) => {
       const project_id = req.params.project_id;
-      const status_data = req.body;
-      const verified_project = await ProjectService.verifyProject({project_id, status_data})
+      const status = req.body.status;
+      const verified_project = await ProjectService.verifyProject({project_id, status})
       if (verified_project.success) {
         res.json(verified_project)
       } else {
@@ -61,23 +61,11 @@ class ProjectController {
         const projectId = req.params.project_id;
         const result = await ProjectService.deleteProjectById(projectId);
         if (result.success) {
-          res.json(result);
+            res.json(result);
         } else {
-          res.status(404).json(result);
+            res.status(404).json(result);
         }
     };
-
-    verifyProject = async (req, res) => {
-      const projectId = req.params.project_id;
-      const status = req.body;
-      const result = await ProjectService.verifyProject(projectId, status);
-      if (result.success) {
-        res.json(result);
-      } else {
-        res.status(404).json(result);
-      }
-    };
-    
 }
 
 module.exports = new ProjectController()
