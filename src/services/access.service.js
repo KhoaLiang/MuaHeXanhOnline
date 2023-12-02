@@ -1,13 +1,13 @@
 'use strict'
+
 const User = require("../models/user.model")
+const Token = require("../models/token.model")
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
-
 const { BadRequestError, AuthFailureError } = require("../core/error.response")
-const { getInfoData } = require("../utils")
 
 class AccessService {
-    static register = async ({username, password, gmail, mssv, school, type_user}) => {
+    static register = async ({username, password, gmail, mssv, school}) => {
         const alreadyExistUser = await User.findOne({ where: {username} }).catch(
             (err) => {
                 console.log("Error: ", err)
@@ -64,14 +64,19 @@ class AccessService {
         const match = bcrypt.compare(password, foundUser.password)
         if (!match) throw new AuthFailureError('Authentication error!')
 
-       const jwtToken = jwt.sign(
-            {mssv: foundUser.mssv},
-            process.env.JWT_SECRET
-       )
-       return {
+        const jwtToken = jwt.sign(
+                {mssv: foundUser.mssv, id: foundUser.id},
+                process.env.JWT_SECRET
+        )
+
+        return {
             code : 200,
             token: jwtToken
-       }
+        }
+    }
+
+    static logout = async ({}) => {
+
     }
 }
 
