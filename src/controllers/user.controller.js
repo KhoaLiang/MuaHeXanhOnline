@@ -1,8 +1,7 @@
 'use strict'
 
 const UserService = require("../services/user.service")
-const {OK, SuccessResponse} = require("../core/success.response")
-const User = require("../models/user.model")
+const { SuccessResponse } = require("../core/success.response")
 
 class UserController {
     getStudentByMSSV = async (req, res, next) => {
