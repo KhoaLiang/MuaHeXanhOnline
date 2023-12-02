@@ -39,11 +39,11 @@ const Project = sequelize.define('project', {
         allowNull: false
     },
     content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
 })
 
 
-Project.belongsTo(Admin, { foreignKey: 'adminId', allowNull: true });
-module.exports = Project;
+// Project.belongsTo(Admin, { foreignKey: 'adminId', allowNull: true });
+module.exports = Project
