@@ -1,7 +1,6 @@
 'use strict'
 
 const User = require("../models/user.model")
-const Token = require("../models/token.model")
 const bcrypt = require('bcrypt')
 const jwt = require("jsonwebtoken")
 const { BadRequestError, AuthFailureError } = require("../core/error.response")
@@ -65,8 +64,6 @@ class AccessService {
             const match = bcrypt.compareSync(password, foundUser.password)
             if (!match) throw new BadRequestError("Password is wrong!")
         }
-        // const match = bcrypt.compareSync(password, foundUser.password)
-        // if (!match) throw new BadRequestError("Password is wrong!")
 
         if (foundUser.type_user === "student") {
             const jwtToken = jwt.sign(
