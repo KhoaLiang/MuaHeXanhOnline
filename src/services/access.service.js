@@ -61,17 +61,31 @@ class AccessService {
             throw new BadRequestError("Username doesn't exist!")
         }
 
-        const match = bcrypt.compare(password, foundUser.password)
-        if (match) throw new AuthFailureError('Authentication error!')
+        if (foundUser.type === 'student') {
+            const match = bcrypt.compareSync(password, foundUser.password)
+            if (!match) throw new BadRequestError("Password is wrong!")
+        }
+        // const match = bcrypt.compareSync(password, foundUser.password)
+        // if (!match) throw new BadRequestError("Password is wrong!")
 
-        const jwtToken = jwt.sign(
-                {mssv: foundUser.mssv, id: foundUser.id},
+        if (foundUser.type_user === "student") {
+            const jwtToken = jwt.sign(
+                {mssv: foundUser.mssv, id: foundUser.id, type_user: foundUser.type_user},
                 process.env.JWT_SECRET
-        )
-
-        return {
-            code : 200,
-            token: jwtToken
+            )
+            return {
+                code : 200,
+                token: jwtToken
+            }
+        } else {
+            const jwtToken = jwt.sign(
+                {mssv: foundUser.mssv, id: foundUser.id, type_user: foundUser.type_user},
+                process.env.JWT_SECRET
+            )
+            return {
+                code : 200,
+                token: jwtToken
+            }
         }
     }
 
