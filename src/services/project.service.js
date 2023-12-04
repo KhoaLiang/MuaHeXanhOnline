@@ -11,7 +11,7 @@ const statusProject = {
 
 class ProjectService  {
     static postProject = async ({title, location, school, content, number_of_students}) => {
-        const newProject = new Project({title, location, school, content, number_of_students, status: statusProject.re_verify});
+        const newProject = new Project({title, location, school, content, number_of_students, current_number : 0, status: statusProject.re_verify});
 
         const savedProject = await newProject.save().catch((error) => {
             console.log("Error: ", error)
