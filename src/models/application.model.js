@@ -17,7 +17,7 @@ const Application = sequelize.define('application', {
     },
     status: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: true
     },
     time: {
         type: DataTypes.DATE

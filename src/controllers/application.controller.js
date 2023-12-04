@@ -45,7 +45,7 @@ class ApplicationController {
         } else {
             res.status(404).json(result);
         }
-    };
+    }
 }
 
 module.exports = new ApplicationController()

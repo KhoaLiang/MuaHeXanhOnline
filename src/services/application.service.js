@@ -1,17 +1,18 @@
 'use strict'
 
-const { NotFoundError } = require("../core/error.response");
+const { NotFoundError, BadRequestError } = require("../core/error.response");
 const Application = require("../models/application.model");
 const Project = require("../models/project.model");
 const User = require("../models/user.model");
 
 class ApplicationService {
     static createApplication = async ({mssv, project_id}) => {
-        const newApplication = new Application({mssv_student: mssv, project_id: project_id, status: false})
+        const newApplication = new Application({mssv_student: mssv, project_id: project_id, status: null})
         const savedApplication = await newApplication.save().catch((error) => {
             console.log("Error", error);
             return new BadRequestError("Error: Cannot create application at the moment");
         });
+        console.log(`savedApplication`, savedApplication)
         if (savedApplication) {
             return {
                 code: 201,
@@ -67,6 +68,15 @@ class ApplicationService {
     static approveApplication = async ({apply_id, status}) => {
         const foundApplication = await Application.findOne({ where: {apply_id: apply_id}})
         if (!foundApplication) throw new NotFoundError("Not found Application")
+
+        const project_id = foundApplication.project_id
+        const foundProject = await Project.findOne({ where: {project_id: project_id}})
+        if (foundProject.current_number == foundProject.number_of_students) {
+            throw new BadRequestError("Slot is full!")
+        }
+        
+        foundProject.current_number += 1
+        await foundProject.save()
 
         const [num, updatedRows] = await Application.update({status: status}, {
             where: { apply_id: apply_id },
