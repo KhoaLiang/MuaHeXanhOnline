@@ -34,6 +34,21 @@ const verifyJWT = async (token, keySecret) => {
     return await JWT.verify(token, keySecret)
 }
 
+const authenticationStudent = asyncHandler(async (req, res, next) => {
+    const token = req.headers[HEADER.AUTHORIZATION]
+    if (!token) throw new AuthFailureError('Invalid Request')
+
+    try {
+        const decodeUser = JWT.decode(token)
+        console.log(`decodeUser`, decodeUser)
+        if (decodeUser.type_user !== 'student') throw new AuthFailureError('Unauthorized')
+        req.user = decodeUser
+        return next()
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 const authenticationAdmin = asyncHandler(async (req, res, next) => {
     const token = req.headers[HEADER.AUTHORIZATION]
     if (!token) throw new AuthFailureError('Invalid Request')
@@ -68,5 +83,6 @@ module.exports = {
     createTokenPair,
     verifyJWT,
     authenticationAdmin,
-    authenticationLeader
+    authenticationLeader,
+    authenticationStudent
 }
