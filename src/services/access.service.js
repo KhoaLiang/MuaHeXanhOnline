@@ -60,9 +60,9 @@ class AccessService {
             throw new BadRequestError("Username doesn't exist!")
         }
 
-        if (foundUser.type === 'student') {
+        if (foundUser.type_user === 'student') {
             const match = bcrypt.compareSync(password, foundUser.password)
-            if (!match) throw new BadRequestError("Password is wrong!")
+            if (!match) throw new BadRequestError('Password is wrong!')
         }
 
         if (foundUser.type_user === "student") {
