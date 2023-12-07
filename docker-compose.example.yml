@@ -4,19 +4,19 @@ services:
   mysqldb:
     image: mysql:8.0
     container_name: mysqlcontainer
-    command: --default-authentication-plugin=
+    #command: --default-authentication-plugin= 12345678
     restart: unless-stopped
     volumes:
       - ./src/database/index.js:/docker-entrypoint-index
     ports:
-      - 3307:3306
+      - 3308:3308
     expose:
-      - 3306
+      - 3308
     environment:
       MYSQL_DATABASE: greensummer_local
       MYSQL_USER: root
-      MYSQL_PASSWORD: 
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678
       SERVICE_TAGS: dev
       SERVICE_NAME: mysqldb
     networks:
@@ -34,7 +34,7 @@ services:
       - 8080
     environment:
       DB_HOST: mysqldb
-      DB_PORT: 3306
+      DB_PORT: 3308
       DB_USER: 'root'
       DB_PASSWORD: 
       DB_NAME: greensummer_local
