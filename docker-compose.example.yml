@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysqlcontainer
+    command: --default-authentication-plugin=
+    restart: unless-stopped
+    volumes:
+      - ./src/database/index.js:/docker-entrypoint-index
+    ports:
+      - 3307:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: greensummer_local
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: 
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysqldb
+    networks:
+      - internalnet
+
+  nodeapp:
+    container_name: greensummerappcontainer
+    build: .
+    image: greensummerapp:v1
+    volumes:
+      - $HOME/greensummerapp:/code
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    environment:
+      DB_HOST: mysqldb
+      DB_PORT: 3306
+      DB_USER: 'root'
+      DB_PASSWORD: 
+      DB_NAME: greensummer_local
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: prod
+      SERVICE_NAME: greensummerappservice
+      SERVER_PORT: 8080
+    depends_on:
+      - mysqldb
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
