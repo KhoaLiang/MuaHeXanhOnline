@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getProfile = async (mssv) => {
-  return await axios.get(`http://localhost/local:5000/v1/api/student/${mssv}`, {
+  return await axios.get(`http://localocal:5000/v1/api/student/${mssv}`, {
     headers: {
       Authorization: `Bearer ...`,
     },
